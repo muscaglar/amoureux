@@ -1,4 +1,4 @@
-function [] = amoureux_TDMS_MAT()
+function [] = amoureux_TDMS_PSD()
 
 fileroot = uigetdir('Amourux File Selector');
 [files,~] = amoureux_file_process(fileroot);
@@ -30,17 +30,17 @@ for i = 1:numel(files)
     
     if(i==1)
         result = convertTDMS(0,filepath);
-        voltage = result.Data.MeasuredData(3).Data';
+        %voltage = result.Data.MeasuredData(3).Data';
         current = result.Data.MeasuredData(4).Data';
     else
         result = convertTDMS(0,filepath);
-        voltage = [voltage, result.Data.MeasuredData(3).Data'];
+        % voltage = [voltage, result.Data.MeasuredData(3).Data'];
         current = [current, result.Data.MeasuredData(4).Data'];
     end
 end
 
-time = 0:1/s_freq:(length(current)-1)/s_freq;
-
+%time = 0:1/s_freq:(length(current)-1)/s_freq;
+[PSD_x,PSD_y] = amoureux_plot_PSD(current,s_freq);
 amoureux_saveMat(files(i).name,files(i).folder);
 
     function [] = amoureux_saveMat(fName,fPath)
@@ -53,8 +53,10 @@ amoureux_saveMat(files(i).name,files(i).folder);
             savepath2 = strcat(fPath,'/',name,'PSD');
         end
         %save_mat = char(strcat(savepath,'.mat'));
-        %save(save_mat,'voltage','current','time');       
+        %save(save_mat,'voltage','current','time');
+        
         save_mat = char(strcat(savepath2,'.mat'));
+        save(save_mat,'PSD_x','PSD_y');
     end
 
     function [number] = amoureux_getNumber(fName)

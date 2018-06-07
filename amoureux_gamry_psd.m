@@ -1,4 +1,4 @@
-function [voltage,current,time,rX,rY] = amoureux_psd()
+function [voltage,current,time,rX,rY] = amoureux_gamry_psd()
 
 fileroot = uigetdir('amoureux PSD Selector');
 files = dir(fullfile(fileroot, '*.DTA'));
@@ -26,10 +26,9 @@ for j = 1:length(files)
     [A,~,~,~,~,~] = amoureux_txt2mat(filepath,'NumHeaderLines',68);
     voltage = A(:,3);
     current = A(:,4);
- 
+    
     [rX,rY] = amoureux_FFT(current, s_freq);
     plot(rX,log10(rY));
-
 end
 time = 0:1/s_freq:(length(current)-1)/s_freq;
 end

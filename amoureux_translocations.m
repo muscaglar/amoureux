@@ -1,16 +1,16 @@
 function [] = amoureux_translocations()
 
-freq = 100000;
+freq = 250000;
 
 % [baseName, folder] = uigetfile({'*.dat';'*.mat';},'CoolWater File Selector');
 % filepath = fullfile(folder, baseName);
-fileroot = uigetdir('Amourux File Selector');
+fileroot = '/Volumes/MUS/ExperimentData/Data/170517/170517_63';%uigetdir('Amourux File Selector');
 [files,keep_mat_files] = amoureux_file_process(fileroot);
 
 voltage = [];
 current = [];
 
-for i = 151:222%numel(files)
+for i = 1:numel(files)
     if(ispc)
         filepath = char(strcat(fileroot,'\',files(i).name));
     else

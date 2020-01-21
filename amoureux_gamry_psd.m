@@ -24,6 +24,10 @@ for j = 1:length(files)
         filepath = char(strcat(fileroot,'/',files(j).name));
     end
     [A,~,~,~,~,~] = amoureux_txt2mat(filepath,'NumHeaderLines',68);
+
+    
+    current = current>0;    
+    
     voltage = A(:,3);
     current = A(:,4);
     
